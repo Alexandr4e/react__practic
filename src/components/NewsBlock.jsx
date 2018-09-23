@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import '../App.css';
+
 import NewsItem from './NewsItem';
 import Filter from './Filter';
+
+import '../App.css';
 
 class NewsBlock extends Component {
   constructor() {
@@ -9,7 +11,7 @@ class NewsBlock extends Component {
     this.state = {
       newsList: [
         {
-          id: '1',
+          id: 1,
           title: 'Все плохо',
           preview: 'Все очень плохо',
           description: 'Все очень плохо но будет лучше',
@@ -17,7 +19,7 @@ class NewsBlock extends Component {
           good: false,
         },
         {
-          id: '2',
+          id: 2,
           title: 'Все норм',
           preview: 'Все очень норм',
           description: 'Все очень норм но будет лучше',
@@ -25,7 +27,7 @@ class NewsBlock extends Component {
           good: true,
         },
         {
-          id: '3',
+          id: 3,
           title: 'Все хорошо',
           preview: 'Все очень хорошо',
           description: 'Все очень хорошо но будет лучше',
@@ -33,7 +35,7 @@ class NewsBlock extends Component {
           good: true,
         },
         {
-          id: '4',
+          id: 4,
           title: 'Все опять плохо',
           preview: 'Все опять очень плохо',
           description: 'Все опять очень плохо но будет лучше',
@@ -41,7 +43,7 @@ class NewsBlock extends Component {
           good: false,
         },
         {
-          id: '5',
+          id: 5,
           title: 'Все опять плохо',
           preview: 'Все опять очень плохо',
           description: 'Все опять очень плохо но будет лучше',
@@ -49,7 +51,7 @@ class NewsBlock extends Component {
           good: false,
         },
         {
-          id: '6',
+          id: 6,
           title: 'Все опять плохо',
           preview: 'Все опять очень плохо',
           description: 'Все опять очень плохо но будет лучше',
@@ -58,90 +60,108 @@ class NewsBlock extends Component {
         },
       ],
       filterByGood: false,
+      dateTime: false,
     };
   }
+
+  addNews = () => {
+    const { newsList } = this.state;
+
+    newsList.push({
+      id: +newsList[newsList.length - 1].id + 1,
+      title: 'Какая то новая новость',
+      preview: 'Все не совсем понятно',
+      description: 'Все не совсем понятно но будет хз как',
+      date: '1.1.2019',
+      good: true,
+    });
+    this.setState({
+      newsList,
+    });
+    console.log(newsList.length);
+  };
 
   delItem = (id) => {
     this.setState({
       newsList: this.state.newsList.filter(item => item.id !== id),
     });
+    console.log(this.state.newsList.length);
   };
 
-  filterReset = () => {
+  resetHandler = () => {
     this.setState({
       filterByGood: false,
+      dateTime: false,
     });
-    console.log('reset');
+    // console.log('reset');
   };
 
-  filterSortByDate = () => {
+  sortByDateHandler = () => {
     this.setState({
-      newsList: this.state.newsList.filter(item => item.date !== ''),
+      dateTime: true,
     });
-    console.log('filter-data');
+    // console.log('filter-data');
   };
 
-  filterSortByGood = () => {
-    this.setstate({
+  sortByGoodHandled = () => {
+    this.setState({
       filterByGood: true,
+      dateTime: false,
     });
-    console.log('filter-good');
-  };
-
-  addNews = () => {
-    let NewsObject = this.state.newsList;
-    NewsObject.push({
-      id: +this.state.newsList[this.state.newsList.length - 1].id + 1,
-      title: 'Какая то новая новость',
-      preview: 'Все не совсем понятно',
-      description: 'Все не совсем понятно но будет хз как',
-      date: '1.1.2019',
-      good: false,
-    });
-    this.setState({
-      newsList: NewsObject,
-    });
+    // console.log('filter-good');
   };
 
   render() {
-    let news =
-    {
-      this.state.filterByGood === true &&
-       this.state.newsList
-        .filter(item => item.good === true)
-        .map(item => (
-          <NewsItem
-            data={item}
-            key={item.id}
-            deleteHandler={this.delItem}
-          />
-      ));
-    }
-    {
-      this.state.filterByGood !== true &&
-      this.state.newsList
-        .map(item => (
-          <NewsItem
-            data={item}
-            key={item.id}
-            deleteHandler={this.delItem}
-          />
-      ));
-    }
+    const {
+      newsList,
+      dateTime,
+      filterByGood,
+    } = this.state;
 
     return (
       <div className="news-block">
         <div className="news-block-title">
-          <h2 className="news-block__title-text">NEWS</h2>
+          <h2
+            className="news-block__title-text"
+          >
+            NEWS
+          </h2>
           <Filter
-            data={this.state.newsList}
-            resetHandler={this.filterReset}
-            sortByDateHandler={this.filterSortByDate}
-            sortByGoodHandler={this.filterSortByGood}
+            data={newsList}
+            resetHandler={this.resetHandler}
+            sortByDateHandler={this.sortByDateHandler}
+            sortByGoodHandler={this.sortByGoodHandled}
           />
         </div>
         <div className="news-block__main">
-          {news}
+          {filterByGood && newsList
+            .filter(item => item.good)
+            .map(item => (
+              <NewsItem
+                data={item}
+                key={item.id}
+                deleteHandler={this.delItem}
+              />
+            ))
+          }
+          {dateTime && newsList
+            .filter(item => item.date !== '')
+            .map(item => (
+              <NewsItem
+                data={item}
+                key={item.id}
+                deleteHandler={this.delItem}
+              />
+            ))
+          }
+          {!filterByGood && !dateTime && newsList.map(item => (
+            <NewsItem
+              data={item}
+              key={item.id}
+              deleteHandler={this.delItem}
+            />
+          ))}
+
         </div>
         <button
           className="news-block__title-btn"

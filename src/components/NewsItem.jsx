@@ -7,7 +7,7 @@ import '../App.css';
 class NewsItem extends Component {
   static propTypes = {
     data: PropTypes.shape({
-      id: PropTypes.string,
+      id: PropTypes.number,
       title: PropTypes.string,
       preview: PropTypes.string,
       description: PropTypes.string,
@@ -30,17 +30,24 @@ class NewsItem extends Component {
   };
 
   render() {
+    const { deleteHandler, data } = this.props;
     const {
-      id, title, preview, description, date,
-    } = this.props.data;
+      id,
+      title,
+      preview,
+      description,
+      date,
+    } = data;
+    const { visible } = this.state;
     return (
       <div className="news-item">
         <p className="news-item__title">{title}</p>
 
-        {!this.state.visible &&
+        { !visible &&
         <React.Fragment>
-          <span className="news-item__preview">{preview}
-          ...
+          <span className="news-item__preview">
+            {preview}
+            ...
           </span>
           <button
             type="button"
@@ -52,7 +59,7 @@ class NewsItem extends Component {
         </React.Fragment>
         }
 
-        {this.state.visible &&
+        { visible &&
         <p className="news-item__description">{description}</p>
         }
         <p className="news-item__date">{date}</p>
@@ -60,10 +67,11 @@ class NewsItem extends Component {
           type="button"
           className="news-item__close"
           onClick={() => {
-            this.props.deleteHandler(id);
+            deleteHandler(id);
           }}
+          // onClick={deleteHandler}
         >
-          close
+          Delete
         </button>
       </div>
     );

@@ -7,11 +7,11 @@ const Footer = ({
   value,
   action,
 }) => (
-  <footer className="App-footer">
-    <div className="App-footer-title">{value}</div>
+  <footer className="App__footer">
+    <div className="App__footer-title">{value}</div>
     <button
       type="button"
-      className="App-footer-btn"
+      className="App__footer-btn"
       onClick={
         () => action('hoho')
       }

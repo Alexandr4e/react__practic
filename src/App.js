@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import './App.css';
+
 import Footer from './components/Footer';
 import NewsBlock from './components/NewsBlock';
 
+import './App.css';
+
 class App extends Component {
+
   constructor() {
     super();
     this.state = {
@@ -24,18 +27,34 @@ class App extends Component {
   };
 
   render() {
+    const { text } = this.state;
     return (
       <div className="App">
-        <header className="App-header">
+        <header className="App__header">
           <input
             type="text"
-            value={this.state.text}
-            onChange={this.inputText}
+            value={text}
+            // onChange={this.inputText}
+            onChange={e => this.inputText(e)}
           />
+          <div className="App__header-tabs">
+            <button
+              className="App__header-btn"
+              type="button"
+            >
+              NEWS
+            </button>
+            <button
+              className="App__header-btn"
+              type="button"
+            >
+              LEARN
+            </button>
+          </div>
         </header>
         <NewsBlock />
         <Footer
-          value={this.state.text}
+          value={text}
           action={this.btnAction}
         />
       </div>
