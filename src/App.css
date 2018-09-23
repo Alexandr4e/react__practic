@@ -11,6 +11,9 @@
     min-height: 100px;
     padding: 20px;
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 .App__footer {
     background-color: #222;
@@ -22,4 +25,16 @@
     justify-content: space-around;
     flex-direction: column;
     align-items: center;
+}
+.App__header-btn {
+    height: 50px;
+    padding: 0 20px;
+    font-size: 24px;
+    border-radius: 10px;
+    cursor: pointer;
+    background: gray;
+    border: none;
+}
+.App__header-btn:first-child {
+    margin-right: 10px;
 }

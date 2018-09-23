@@ -6,8 +6,8 @@ import Filter from './Filter';
 import '../App.css';
 
 class NewsBlock extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       newsList: [
         {
@@ -78,14 +78,14 @@ class NewsBlock extends Component {
     this.setState({
       newsList,
     });
-    console.log(newsList.length);
+    // console.log(newsList.length);
   };
 
   delItem = (id) => {
     this.setState({
       newsList: this.state.newsList.filter(item => item.id !== id),
     });
-    console.log(this.state.newsList.length);
+    // console.log(this.state.newsList.length);
   };
 
   resetHandler = () => {
@@ -163,13 +163,19 @@ class NewsBlock extends Component {
           ))}
 
         </div>
-        <button
-          className="news-block__title-btn"
-          type="button"
-          onClick={this.addNews}
-        >
-          Add
-        </button>
+        <div className="news-block__main-bottom">
+          <button
+            className="news-block__btn"
+            type="button"
+            onClick={this.addNews}
+          >
+            Add
+          </button>
+          <p className="news-block__summNews">
+            Всего новостей :
+            { ' ' + newsList.length}
+          </p>
+        </div>
       </div>
     );
   }
