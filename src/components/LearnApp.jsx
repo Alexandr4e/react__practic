@@ -28,6 +28,16 @@ const LearnApp = () => {
       bigText: 'Еще есть группа VK, telegram и канал на youtube! Вся инфа на сайте, не реклама!',
     },
   ];
+  // let someObject = {
+  //   name: 'Alex',
+  //   age: 17,
+  //   color: 'white',
+  // };
+  // // let myNewNews = Object.assign({}, someObject, { color: 'black' });
+  // let myNewNews = { ...someObject, color: 'black' };
+  // console.log('_______');
+  // console.log(myNewNews);
+  // console.log('_______');
   return (
     <React.Fragment>
       <h3>Новости</h3>
